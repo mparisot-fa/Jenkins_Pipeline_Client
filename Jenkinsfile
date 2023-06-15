@@ -7,7 +7,7 @@ config["components"] = [
                 ]
         ]
 
-config["environments"] =  ['sandbox', 'dev', 'qa', 'stg', 'prod']
+
 
 
 
