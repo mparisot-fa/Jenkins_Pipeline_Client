@@ -1,0 +1,65 @@
+library identifier: "pipeline-library-jenkins@${params.LibraryVersion}", retriever: modernSCM(
+//library identifier: "pipeline-library-jenkins@main", retriever: modernSCM(
+
+[$class       : 'GitSCMSource',
+remote       : 'https://github.com/AltusPerformancePlatform/pipeline-library-jenkins.git',
+credentialsId: 'GitServiceAccessToken'])
+
+
+properties([
+        parameters([
+
+//    withCredentials([usernamePassword(credentialsId: 'GitServiceAccessToken', usernameVariable: 'USERNAME', passwordVariable: 'GIT_TOKEN')])
+//    {
+        /*
+        gitParameter(
+          branch: '',
+          branchFilter: ".*",
+          defaultValue: "",
+          description: '',
+          listSize: '10',
+          name: 'LibraryVersion',
+          quickFilterEnabled: false,
+          selectedValue: 'NONE',
+          sortMode: 'ASCENDING_SMART',
+          tagFilter: "*",
+          type: 'PT_BRANCH_TAG',
+          useRepository: "https://$GIT_TOKEN:x-oauth-basic@github.com/AltusPerformancePlatform/pipeline-library-jenkins.git")
+          */
+        /*
+        choice(
+            choices: ['main', 'testmat'],
+            name: 'LibraryVersion'
+        )
+        */
+        hidden(name: 'LibraryVersion', defaultValue: 'main')
+
+    ])
+])
+
+
+pipeline {
+    agent any
+
+
+ //   }
+
+    stages{
+        stage('AuthoriseUser') {
+         steps {
+            sh """
+            echo "Library version is ${params.LibraryVersion}"
+
+            """
+            /*
+            def currentBuild = currentBuild.rawBuild
+            def cause = currentBuild.getCause(hudson.model.Cause.UserIdCause.class)
+            def user_id = cause.getUserId()
+            def user_groups = User.getById(user_id, false).getAuthorities()
+            println("User groups: [" + user_groups +"]")
+            */
+            // AuthoriseUser(this)
+            }
+        }
+    }
+}
